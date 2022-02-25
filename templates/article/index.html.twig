@@ -1,41 +1,109 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}CV WASEF{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
+<div id="content" class="container p-0">
+<div class="profile-header">
+    <div class="profile-header-cover">  
+    </div>
+    <div class="profile-header-content">
+        <div class="profile-header-img">
+            <img src="{{ asset('./images/profil.jpg') }}" alt="WASEF Alexandra" />
+        </div>
+        <div class="profile-header-info">
+            <h4 class="m-t-sm">WASEF Alexandra</h4>
+            <p class="m-b-sm">Développeuse Web</p>
+            <a href="#" class="btn btn-xs btn-primary mb-4">Edit Profile</a>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Date_debut</th>
-                <th>Date_fin</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.nom }}</td>
-                <td>{{ article.description }}</td>
-                <td>{{ article.dateDebut ? article.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ article.dateFin ? article.dateFin|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <ul class="profile-header-tab nav nav-tabs">
+        <li class="nav-item"><a href="#profile-post" class="nav-link active show" data-toggle="tab">PROJET</a></li>
+        <li class="nav-item"><a href="#profile-about" class="nav-link" data-toggle="tab">ABOUT</a></li>
+        <li class="nav-item"><a href="#profile-photos" class="nav-link " data-toggle="tab">PHOTOS</a></li>
+        <li class="nav-item"><a href="#profile-videos" class="nav-link" data-toggle="tab">VIDEOS</a></li>
+        <li class="nav-item"><a href="#profile-friends" class="nav-link" data-toggle="tab">FRIENDS</a></li>
+    </ul>
+</div>
 
-    <a href="{{ path('article_new') }}">Create new</a>
+<div class="profile-container">
+    <div class="row row-space-20">
+        <div class="col-md-8">
+            <div class="tab-content p-0">
+                <div class="tab-pane active show" id="profile-post">
+                        {% for article in articles %}
+                        <div class="card mb-3" style="max-width:100%;">
+                            <div class="row g-0">
+                                <div class="col-md-2">
+                                    {% for image in article.images %}
+                                        <img class="img-fluid rounded-start" width="100%"  src="{{ asset('/telechargement/' ~ image.nom) }}" alt="Image du produit" >
+                                    {% else %}
+                                        <td>No image</td>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{ article.nom }}</h5>
+                                    <p class="card-text">{{ article.description }}</p>
+                                    <p class="card-text"><small class="text-muted">{{ article.dateDebut ? article.dateDebut|date('Y-m-d') : '' }} à {{ article.dateFin ? article.dateFin|date('Y-m-d') : '' }} </small></p>
+                                <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
+                            <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                           
+                        {% else %}
+                            <p>Aucun articles pour le moment ...</p>
+                        {% endfor %}
+            
+                </div>                    
+            </div>
+        </div>
+
+        <div class="col-md-4 hidden-xs hidden-sm">
+            <ul class="profile-info-list">
+                <li class="title">INFORMATIONS PERSONELLES</li>
+                <li>
+                    <div class="field">Occupation:</div>
+                    <div class="value">Développeuse Web</div>
+                </li>
+                <li>
+                    <div class="field">Compétences:</div>
+                    <div class="value">PHP, HTML5, CSS, javascripts, Python, jQuery, MYSQL, Symfony, Bootstrap, Angular JS, Asp.net, React JS, Node JS</div>
+                </li>
+                <li>
+                    <div class="field">Date de naissance:</div>
+                    <div class="value">05/09/2001</div>
+                </li>
+                <li>
+                    <div class="field">Pays:</div>
+                    <div class="value">France</div>
+                </li>
+                <li>
+                    <div class="field">Addresse:</div>
+                    <div class="value">
+                        <address class="m-b-0">
+                            Résidence des lignières<br />
+                            TAVERNY, 95150
+                        </address>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">Numèro de télephone:</div>
+                    <div class="value">
+                        06 52 07 68 14
+                    </div>
+                </li>
+                <li class="title">Réseaux</li>
+                <li class="img-list">
+                    <a href="#" class="m-b-5"><img src="https://via.placeholder.com/150x150/008B8B/000000" alt="" />Linkedin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<a href="{{ path('article_new') }}">Create new</a>
+</div>
 {% endblock %}

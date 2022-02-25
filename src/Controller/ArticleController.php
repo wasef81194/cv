@@ -78,6 +78,27 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //récuperer les images
+            $images = $form['images']->getData();
+           
+            //dump($images);
+            //on parcours chaque images 
+            foreach ($article->getImages() as $image) {
+                $article->removeImage($image);
+                unlink($this->getParameter('images_directory').'/'.$image->getNom());
+            }
+            foreach($images as $image){
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                //on copie les fichier dans le dossier uploads
+                $image->move($this->getParameter('images_directory'),$fichier);
+                $newImage = new Image();
+                $newImage->setNom($fichier);
+                $article->addImage($newImage);  
+                
+            }
+            $entityManager->persist($article);// mettre cascase dans la variable images 
+            $entityManager->flush();
+
             $entityManager->flush();
 
             return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
@@ -93,6 +114,10 @@ class ArticleController extends AbstractController
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            foreach ($article->getImages() as $image) {
+                $article->removeImage($image);
+                unlink($this->getParameter('images_directory').'/'.$image->getNom());
+            }
             $entityManager->remove($article);
             $entityManager->flush();
         }
