@@ -83,11 +83,17 @@ class ArticleController extends AbstractController
            
             //dump($images);
             //on parcours chaque images 
-            foreach ($article->getImages() as $image) {
-                $article->removeImage($image);
-                unlink($this->getParameter('images_directory').'/'.$image->getNom());
-            }
+            
             foreach($images as $image){
+                
+                    foreach ($article->getImages() as $image_delete) {
+                        if($image_delete->getNom() ){
+                            dump($image_delete);
+                            $article->removeImage($image_delete);
+                            unlink($this->getParameter('images_directory').'/'.$image_delete->getNom());
+                        }
+                    }
+                
                 $fichier = md5(uniqid()).'.'.$image->guessExtension();
                 //on copie les fichier dans le dossier uploads
                 $image->move($this->getParameter('images_directory'),$fichier);

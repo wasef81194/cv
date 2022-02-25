@@ -11,3 +11,4 @@ import './styles/article.scss';
 
 // start the Stimulus application
 import './bootstrap';
+import './controllers/card_projet.js';

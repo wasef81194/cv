@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Etablissement;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArticleType extends AbstractType
 {
@@ -16,7 +17,7 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('description')
+            ->add('description',TextareaType::class)
             ->add('date_debut')
             ->add('date_fin')
             ->add('etablissement', EntityType::class,[

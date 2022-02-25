@@ -32,23 +32,25 @@
         <div class="col-md-8">
             <div class="tab-content p-0">
                 <div class="tab-pane active show" id="profile-post">
-                        {% for article in articles %}
-                        <div class="card mb-3" style="max-width:100%;">
+                        {% for article in articles|sort((a, b) => b.dateFin <=> a.dateFin) %}
+                        <div class="card mb-3 pointer" data-show-card style="max-width:100%; cursor:pointer;">
                             <div class="row g-0">
-                                <div class="col-md-2">
+                                <div class="col-md-5">
                                     {% for image in article.images %}
-                                        <img class="img-fluid rounded-start" width="100%"  src="{{ asset('/telechargement/' ~ image.nom) }}" alt="Image du produit" >
+                                        <img class="img-fluid rounded-start " width="100%"  src="{{ asset('/telechargement/' ~ image.nom) }}" alt="Image de larticle" >
                                     {% else %}
                                         <td>No image</td>
                                     {% endfor %}
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="card-body">
-                                    <h5 class="card-title">{{ article.nom }}</h5>
-                                    <p class="card-text">{{ article.description }}</p>
-                                    <p class="card-text"><small class="text-muted">{{ article.dateDebut ? article.dateDebut|date('Y-m-d') : '' }} à {{ article.dateFin ? article.dateFin|date('Y-m-d') : '' }} </small></p>
-                                <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                            <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                                    <h3 class="card-title">{{ article.nom }}</h3>
+                                    <p class="card-text"><small class="text-muted"> {{article.etablissement.nom}} </small></p>
+                                    <p class="card-text"><small class="text-muted">De {{ article.dateDebut ? article.dateDebut|date('d-m-Y') : '' }} à {{ article.dateFin ? article.dateFin|date('d-m-Y') : '' }} </small></p>
+                                    <p class="card-text">{{ article.description|striptags|length > 100 ? article.description|striptags|slice(0, 100) ~ '....' : article.description|striptags  }}</p>
+                                
+                                <a class='d-none' id="location" href="{{ path('article_show', {'id': article.id}) }}">show</a>
+                                <a  href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
                                     </div>
                                 </div>
                             </div>
