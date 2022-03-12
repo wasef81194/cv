@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Contact;
 use App\Entity\Image;
 use App\Form\ArticleType;
+use App\Form\ContactType;
+use App\Repository\ContactRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,11 +18,22 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/article')]
 class ArticleController extends AbstractController
 {
-    #[Route('/', name: 'article_index', methods: ['GET'])]
-    public function index(ArticleRepository $articleRepository): Response
+    #[Route('/', name: 'article_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, ContactRepository $contactRepository, ArticleRepository $articleRepository ): Response
     {
-        return $this->render('article/index.html.twig', [
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contactRepository->add($contact);
+            return $this->redirectToRoute('app_contact_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
+            'contact' => $contact,
+            'formContact' => $form,
         ]);
     }
 
@@ -83,24 +97,25 @@ class ArticleController extends AbstractController
            
             //dump($images);
             //on parcours chaque images 
-            
-            foreach($images as $image){
-                
-                    foreach ($article->getImages() as $image_delete) {
-                        if($image_delete->getNom() ){
-                            dump($image_delete);
-                            $article->removeImage($image_delete);
-                            unlink($this->getParameter('images_directory').'/'.$image_delete->getNom());
+            if($images){
+                foreach($images as $image){
+                    
+                        foreach ($article->getImages() as $image_delete) {
+                            if($image_delete->getNom() ){
+                                dump($image_delete);
+                                $article->removeImage($image_delete);
+                                unlink($this->getParameter('images_directory').'/'.$image_delete->getNom());
+                            }
                         }
-                    }
-                
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
-                //on copie les fichier dans le dossier uploads
-                $image->move($this->getParameter('images_directory'),$fichier);
-                $newImage = new Image();
-                $newImage->setNom($fichier);
-                $article->addImage($newImage);  
-                
+                    
+                    $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                    //on copie les fichier dans le dossier uploads
+                    $image->move($this->getParameter('images_directory'),$fichier);
+                    $newImage = new Image();
+                    $newImage->setNom($fichier);
+                    $article->addImage($newImage);  
+                    
+                }
             }
             $entityManager->persist($article);// mettre cascase dans la variable images 
             $entityManager->flush();
@@ -123,6 +138,7 @@ class ArticleController extends AbstractController
             foreach ($article->getImages() as $image) {
                 $article->removeImage($image);
                 unlink($this->getParameter('images_directory').'/'.$image->getNom());
+                $entityManager->remove($image);
             }
             $entityManager->remove($article);
             $entityManager->flush();

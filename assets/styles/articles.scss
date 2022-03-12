@@ -1,5 +1,5 @@
 body{
-    background: #f7e8ef;
+    background: var(--bs-lightpink);
     margin-top:20px;
 }
 .profile-info-list {
@@ -43,27 +43,6 @@ body{
 .email-sender-img img,
 .profile-header-img img {
     max-width: 100%;
-}
-.table.table-profile th {
-    border: none;
-    color: #000;
-    padding-bottom: 0.3125rem;
-    padding-top: 0;
-}
-.table.table-profile td {
-    border-color: #c8c7cc;
-}
-.table.table-profile tbody + thead > tr > th {
-    padding-top: 1.5625rem;
-}
-.table.table-profile .field {
-    color: #666;
-    font-weight: 600;
-    width: 25%;
-    text-align: right;
-}
-.table.table-profile .value {
-    font-weight: 500;
 }
 .profile-header {
     position: relative;
@@ -117,7 +96,7 @@ body .fc-icon {
 }
 .profile-header .profile-header-tab > li.active > a,
 .profile-header .profile-header-tab > li > a.active {
-    color: #bd0058;
+    color: var(--bs-pink);
 }
 .profile-header .profile-header-content:after,
 .profile-header .profile-header-content:before {
@@ -230,28 +209,6 @@ body .fc-widget-header a {
 .profile-header-img img {
     max-width: 100%;
 }
-.table.table-profile th {
-    border: none;
-    color: #000;
-    padding-bottom: 0.3125rem;
-    padding-top: 0;
-}
-.table.table-profile td {
-    border-color: #c8c7cc;
-}
-.table.table-profile tbody + thead > tr > th {
-    padding-top: 1.5625rem;
-}
-.table.table-profile .field {
-    color: #666;
-    font-weight: 600;
-    width: 25%;
-    text-align: right;
-}
-.table.table-profile .value {
-    font-weight: 500;
-}
-
 .img-grid-list {
     margin: -1px;
     list-style-type: none;
@@ -279,8 +236,32 @@ body .fc-widget-header a {
     max-width: 100%;
 }
 .card{
-    border: 1px solid rgba(255, 0, 106, 0.233);
+    border: 1px solid var(--bs-mauve-transparent);
 }
 h3{
-    color: #bd0058;
+    color: var(--bs-pink);
+}
+.zoom {
+    -webkit-transition: all 1s ease; /* Safari et Chrome */
+    -moz-transition: all 1s ease; /* Firefox */
+    -ms-transition: all 1s ease; /* Internet Explorer 9 */
+    -o-transition: all 1s ease; /* Opera */
+    transition: all 1s ease;
+}
+.zoom:hover {
+    -webkit-transform:scale(1.03); /* Safari et Chrome */
+    -moz-transform:scale(1.03); /* Firefox */
+    -ms-transform:scale(1.03); /* Internet Explorer 9 */
+    -o-transform:scale(1.03); /* Opera */
+    transform:scale(1.03);
+}
+.btn-pink {
+    color: #fff;
+    background-color: var(--bs-pink);
+    border-color: var(--bs-darkpink);
+}
+.btn-pink:hover {
+    color: #fff;
+    background-color: var(--bs-darkpink);
+    border-color: var(--bs-pink);
 }

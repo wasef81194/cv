@@ -6,6 +6,7 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+import './styles/root.scss';
 import './styles/app.scss';
 import './styles/articles.scss';
 import './styles/article.scss';
@@ -13,3 +14,4 @@ import './styles/article.scss';
 // start the Stimulus application
 import './bootstrap';
 import './controllers/card_projet.js';
+import './controllers/nav.js';
