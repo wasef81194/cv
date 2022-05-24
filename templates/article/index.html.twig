@@ -24,10 +24,14 @@
 
     <ul class="profile-header-tab nav nav-tabs">
         <li class="nav-item"><a href="#projet" class="nav-link" data-toggle="tab">PROJET</a></li>
-        <l
+        <li class="nav-item"><a href="#profile-about" class="nav-link" data-toggle="tab">À PROPOS</a></li>
+        <li class="nav-item"><a href="#profile-photos" class="nav-link " data-toggle="tab">PHOTOS</a></li>
+        <li class="nav-item"><a href="#profile-videos" class="nav-link" data-toggle="tab">VIDEOS</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link" data-toggle="tab">CONTACT</a></li>
     </ul>
 </div>
 
+ <!-- CARTES PROJETS -->
 <div class="profile-container">
     <div class="row row-space-20">
         <div class="col-md-8">
@@ -35,20 +39,22 @@
                 <div class="tab-pane active show" id="projet">
                         {% for article in articles|sort((a, b) => b.dateFin <=> a.dateFin) %}
                             <div class="zoom">
-                                <div class="card mb-3 pointer" href="{{ path('article_show', {'id': article.id}) }}" data-show-card   style="max-width:100%; cursor:pointer;">
+                                <div class="card mb-3 pointer" data-bs-toggle="modal" data-bs-target="#modalArticle{{article.id}}">
                                     <div class="row g-0" >
                                         <div class="col-md-5">
+                                            <div class="img-header">
                                             {% for image in article.images %}
                                                 <img class="img-fluid rounded-start " width="100%"  src="{{ asset('/telechargement/' ~ image.nom) }}" alt="Image de larticle" >
                                             {% else %}
                                                 <td>No image</td>
                                             {% endfor %}
+                                            </div>
                                         </div>
                                         <div class="col-md-7" >
                                             <div class="card-body">
                                             <h3 class="card-title">{{ article.nom }}</h3>
                                             <p class="card-text"><small class="text-muted"> {{article.etablissement.nom}} </small></p>
-                                            <p class="card-text"><small class="text-muted">De {{ article.dateDebut ? article.dateDebut|date('d-m-Y') : '' }} à {{ article.dateFin ? article.dateFin|date('d-m-Y') : '' }} </small></p>
+                                            <p class="card-text"><small class="text-muted">Du {{ article.dateDebut ? article.dateDebut|date('d M Y H:i')|format_datetime('medium','none',locale='fr') : '' }} au {{ article.dateFin ? article.dateFin|date('d M Y H:i')|format_datetime('medium','none',locale='fr') : '' }} </small></p>
                                             <p class="card-text">{{ article.description|striptags|length > 100 ? article.description|striptags|slice(0, 100) ~ '....' : article.description|striptags  }}</p>
                                             <!--<a  href="{{ path('article_edit', {'id': article.id}) }}">edit</a>!-->
                                             </div>
@@ -56,6 +62,7 @@
                                     </div>
                                 </div>
                             </div>
+                        {{ include('article/_modal.html.twig') }}
                         {% else %}
                             <p>Aucun articles pour le moment ...</p>
                         {% endfor %}
@@ -63,7 +70,7 @@
                 </div>                    
             </div>
         </div>
-
+        <!-- INFORMATIONS PERSONELLES -->
         <div class="col-md-4 hidden-xs hidden-sm">
             <ul class="profile-info-list" id="profile-about">
                 <li class="title">INFORMATIONS PERSONELLES</li>
@@ -98,17 +105,26 @@
                         06 52 07 68 14
                     </div>
                 </li>
-                <li class="title">Réseaux</li>
-                <li class="img-list">
-                    <a href="#" class="m-b-5"><img src="https://via.placeholder.com/150x150/008B8B/000000" alt="" />Linkedin</a>
+                <li>
+                    <div class="field">Réseaux:</div>
+                    <li class="img-list">
+                            <a href="https://github.com/wasef81194" target="_blank" class="m-b-5"><img src="{{ asset('images/github.png') }}" alt="Github" /></a>
+                            <a href="https://www.linkedin.com/in/alexandra-wasef-95b1a91a7/" target="_blank" class="m-b-5"><img src="{{ asset('images/linkedin.png') }}" alt="Github" /></a>
+                    </li>
                 </li>
+              
+               
             </ul>
         </div>
     </div>
 </div>
-<a href="{{ path('article_new') }}">Create new</a>
-<!-- page contact form -->
-{{ include('article/contact_form.html.twig') }}
-</div>
 
+    <a href="{{ path('article_new') }}">Create new</a>
+    <!-- page contact form -->
+    
+    <div class="contact card" id="contact" style="margin-bottom:100px;">
+        <h1>Contactez-moi</h1>
+        {{ include('article/contact_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade modalProjet" id="modalArticle{{article.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ article.nom }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4> 
+            {{ article.etablissement.nom }}
+        </h4>
+        <div class="modal-img-header">
+            {% for image in article.images %}
+                <img class="img-fluid rounded-start " width="100%"  src="{{ asset('/telechargement/' ~ image.nom) }}" alt="Image de larticle" >
+            {% endfor %}
+        </div>
+        <p class="modal-text text-muted"> 
+            Du {{ article.dateDebut ? article.dateDebut|date('d M Y H:i')|format_datetime('medium','none',locale='fr') : '' }} 
+            au {{ article.dateFin ? article.dateFin|date('d M Y H:i')|format_datetime('medium','none',locale='fr') : '' }}
+        </p>
+        <p class="modal-text"> {{ article.description }} </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
