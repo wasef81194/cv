@@ -33,6 +33,9 @@ class Article
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Image::class, cascade:['persist'] )]
     private $images;
 
+    #[ORM\OneToOne(inversedBy: 'article', targetEntity: Link::class, cascade: ['persist', 'remove'])]
+    private $links;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -129,6 +132,18 @@ class Article
                 $image->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLinks(): ?Link
+    {
+        return $this->links;
+    }
+
+    public function setLinks(?Link $links): self
+    {
+        $this->links = $links;
 
         return $this;
     }
