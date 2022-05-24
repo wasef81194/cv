@@ -25,6 +25,10 @@ class ArticleType extends AbstractType
                 'choice_label' => 'nom',
                 'multiple' => false,
             ])
+            ->add('links', LinkType::class,[
+                'label' => false,
+                'required' => false
+            ])
             ->add('images', FileType::class,[
                 'label' => false,
                 'multiple' => true,

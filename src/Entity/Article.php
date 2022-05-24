@@ -18,7 +18,7 @@ class Article
     #[ORM\Column(type: 'string', length: 255)]
     private $nom;
 
-    #[ORM\Column(type: 'string', length: 300)]
+    #[ORM\Column(type: 'string', length: 9999)]
     private $description;
 
     #[ORM\Column(type: 'date')]
