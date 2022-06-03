@@ -24,7 +24,7 @@
             {% if article.links.web is defined %}
                 <a href="{{ article.links.web}}" class="link-web"><div><i class="bi bi-globe"></i></div></a>
             {% elseif article.links.github is defined %}
-                <p>{{article.links.github}}</p>
+                <a href="{{ article.links.github}}" class="link-github"><div>{{article.links.github}}</div></a>
             {% elseif article.links.video is defined %}
                 <p>{{article.links.video}}</p>
             {% endif %}
