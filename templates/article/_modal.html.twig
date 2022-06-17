@@ -20,13 +20,15 @@
             au {{ article.dateFin ? article.dateFin|date('d M Y H:i')|format_datetime('medium','none',locale='fr') : '' }}
         </p>
         <p class="modal-text"> {{ article.description }} </p>
-        <div class="modal-text">
-            {% if article.links.web is defined %}
+        <div class="modal-icon">
+            {% if article.links.web is not empty %}
                 <a href="{{ article.links.web}}" class="link-web"><div><i class="bi bi-globe"></i></div></a>
-            {% elseif article.links.github is defined %}
-                <a href="{{ article.links.github}}" class="link-github"><div>{{article.links.github}}</div></a>
-            {% elseif article.links.video is defined %}
-                <p>{{article.links.video}}</p>
+            {% endif %}
+            {% if article.links.github is not empty %}
+                <a href="{{ article.links.github}}" class="link-github"><div><i class="bi bi-github"></i></i></div></a>
+            {% endif %}
+            {% if article.links.video is not empty %}
+              <a href="{{article.links.video}}" class="link-video"> <div><i class="bi bi-play-circle-fill"></i></i></i></div></a>
             {% endif %}
         </div>
       </div>

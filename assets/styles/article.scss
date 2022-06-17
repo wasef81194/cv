@@ -27,7 +27,7 @@
                     margin-bottom: 20px;
                 }
                 .modal-img-header{
-                    height: 200px;
+                    height: 320px;
                     width: 600px;
                     margin: auto;
                     img{
@@ -40,6 +40,11 @@
                 }
                 .modal-text{
                     padding: 10px 50px;
+                }
+                .modal-icon
+                {
+                    padding: 10px 50px;
+                    text-align: center;
                     a{
                         margin: auto;
                         text-decoration: none;
@@ -55,16 +60,30 @@
                         overflow: hidden;
                         transition: .5s;
                         border: 3px solid black;
+                        display: inline-block;
                         div{
                             color: #262626;
                             padding: 0;
                             margin: 0;
                             transition: .5s;
-                           
                         }
                     }
                     .link-web:hover{
                             background: #15b7f7;
+                        div{  
+                            transform: rotateY(360deg);
+                            color: rgb(255, 255, 255);
+                        }
+                    }
+                    .link-github:hover{
+                            background: #000000;
+                        div{  
+                            transform: rotateY(360deg);
+                            color: rgb(255, 255, 255);
+                        }
+                    }
+                    .link-video:hover{
+                            background: #c71919;
                         div{  
                             transform: rotateY(360deg);
                             color: rgb(255, 255, 255);
