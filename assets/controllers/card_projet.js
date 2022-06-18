@@ -1,4 +1,4 @@
-let cards = document.querySelectorAll("[data-show-card]")
+/*let cards = document.querySelectorAll("[data-show-card]")
 // On boucle sur links
 for(card of cards){
     // On écoute le clic
@@ -7,4 +7,4 @@ for(card of cards){
       //  window.location.href = this.getAttribute("href")
         // window.location.href = a.getAttribute('href')
     })
-}
+}*/
