@@ -1,0 +1,17 @@
+<!-- Modal -->
+<div class="modal fade modalAlbum" id="modalAlbum{{album.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" style="max-width:60%">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">{{ album.article.nom }}</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img class="img-fluid rounded-start " width="100%"  src="{{ asset('/albums/' ~ album.nom) }}" alt="Image" >
+      </div>
+      <div class="modal-footer ">
+        <p class="modal-text "> {{ album.legende }} </p>
+      </div>
+    </div>
+  </div>
+</div>

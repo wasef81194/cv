@@ -36,9 +36,13 @@ class Article
     #[ORM\OneToOne(inversedBy: 'article', targetEntity: Link::class, cascade: ['persist', 'remove'])]
     private $links;
 
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Albums::class)]
+    private $albums;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->albums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +148,36 @@ class Article
     public function setLinks(?Link $links): self
     {
         $this->links = $links;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Albums>
+     */
+    public function getAlbums(): Collection
+    {
+        return $this->albums;
+    }
+
+    public function addAlbum(Albums $album): self
+    {
+        if (!$this->albums->contains($album)) {
+            $this->albums[] = $album;
+            $album->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlbum(Albums $album): self
+    {
+        if ($this->albums->removeElement($album)) {
+            // set the owning side to null (unless already changed)
+            if ($album->getArticle() === $this) {
+                $album->setArticle(null);
+            }
+        }
 
         return $this;
     }

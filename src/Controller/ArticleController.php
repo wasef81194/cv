@@ -9,6 +9,7 @@ use App\Form\ArticleType;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\AlbumsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     #[Route('/', name: 'article_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, ContactRepository $contactRepository, ArticleRepository $articleRepository ): Response
+    public function index(Request $request, ContactRepository $contactRepository, ArticleRepository $articleRepository , AlbumsRepository $albumsRepository ): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -32,6 +33,7 @@ class ArticleController extends AbstractController
 
         return $this->renderForm('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
+            'albums'=> $albumsRepository->findAll(),
             'contact' => $contact,
             'formContact' => $form,
         ]);

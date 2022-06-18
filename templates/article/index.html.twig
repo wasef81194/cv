@@ -36,7 +36,12 @@
         <div class="col-md-8">
             <div class="tab-content p-0">
                 <div class="tab-pane" id="profile-photos">
-                    <p>Photo</p>
+                    {% for album in albums|sort((a, b) => b.article.id <=> a.article.id) %}
+                        <div class='card-album'>
+                            <img class="img-fluid rounded album" width="100%" src="{{ asset('/albums/' ~ album.nom) }}" alt="Image" data-bs-toggle="modal" data-bs-target="#modalAlbum{{album.id}}" >
+                        </div>
+                    {{ include('albums/_modal.html.twig') }}
+                    {% endfor %}
                 </div>
                 <div class="tab-pane active show" id="projet">
                         {% for article in articles|sort((a, b) => b.dateFin <=> a.dateFin) %}
@@ -121,7 +126,8 @@
     </div>
 </div>
 
-    <a href="{{ path('article_new') }}">Create new</a>
+    <a href="{{ path('article_new') }}">Nouvelle article</a>
+    <a href="{{ path('app_albums_new') }}">Nouvelle photo</a>
     <!-- page contact form -->
     
     <div class="contact card" id="contact" style="margin-bottom:100px;">
