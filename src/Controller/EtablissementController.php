@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/etablissement')]
 class EtablissementController extends AbstractController
-{
+{ /*
     #[Route('/', name: 'etablissement_index', methods: ['GET'])]
     public function index(EtablissementRepository $etablissementRepository): Response
     {
@@ -77,5 +77,5 @@ class EtablissementController extends AbstractController
         }
 
         return $this->redirectToRoute('etablissement_index', [], Response::HTTP_SEE_OTHER);
-    }
+    }*/
 }

@@ -17,7 +17,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 #[Route('/contact')]
 class ContactController extends AbstractController
-{
+{   /*
     #[Route('/', name: 'app_contact_index', methods: ['GET'])]
     public function index(ContactRepository $contactRepository): Response
     {
@@ -97,5 +97,5 @@ class ContactController extends AbstractController
         }
 
         return $this->redirectToRoute('app_contact_index', [], Response::HTTP_SEE_OTHER);
-    }
+    }*/
 }
