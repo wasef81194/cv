@@ -63,7 +63,7 @@
                                             <p class="card-text"><small class="text-muted"> {{article.etablissement.nom}} </small></p>
                                             <p class="card-text"><small class="text-muted">Du {{ article.dateDebut ? article.dateDebut|date('d M Y H:i')|format_datetime('medium','none',locale='fr') : '' }} au {{ article.dateFin ? article.dateFin|date('d M Y H:i')|format_datetime('medium','none',locale='fr') : '' }} </small></p>
                                             <p class="card-text">{{ article.description|striptags|length > 100 ? article.description|striptags|slice(0, 100) ~ '....' : article.description|striptags  }}</p>
-                                            <!--<a  href="{{ path('article_edit', {'id': article.id}) }}">edit</a>!-->
+                                            {#<a  href="{{ path('article_edit', {'id': article.id}) }}">edit</a>#}
                                             </div>
                                         </div>
                                     </div>
@@ -142,6 +142,9 @@
         <div class="message-send mt-4 alert alert-success">
            <p> <i class="bi bi-check-circle-fill"></i> Votre message a bien été envoyé. Alexandra WASEF vous recontactera dans les plus brefs délais. </p>
         </div>
+    </div>
+    <div class="footer mt-4">
+        <p> © WASEF Alexandra - 2022 </p>
     </div>
 </div>
 {% endblock %}

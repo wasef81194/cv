@@ -59,8 +59,8 @@ class ArticleController extends AbstractController
             'formContact' => $form,
         ]);
     }
-
-   /* #[Route('/new', name: 'article_new', methods: ['GET', 'POST'])]
+    /*
+    #[Route('/new', name: 'article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $article = new Article();

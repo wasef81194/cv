@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/albums')]
 class AlbumsController extends AbstractController
-{   /*
+{  /*
     #[Route('/', name: 'app_albums_index', methods: ['GET'])]
     public function index(AlbumsRepository $albumsRepository): Response
     {

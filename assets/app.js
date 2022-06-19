@@ -19,6 +19,7 @@ import "./styles/articles.scss";
 import "./styles/article.scss";
 import "./styles/albums.scss";
 import "./styles/contact.scss";
+import "./styles/footer.scss";
 
 // start the Stimulus application
 import "./bootstrap";
