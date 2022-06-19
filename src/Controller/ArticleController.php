@@ -50,7 +50,6 @@ class ArticleController extends AbstractController
                     ])
             ;
             $mailer->send($data);
-            $this->addFlash('message', 'Votre message à bien été envoyer. Je Alexandra WASEF vous recontactera dans les plus bref délais');
         }
 
         return $this->renderForm('article/index.html.twig', [

@@ -133,6 +133,15 @@
     <div class="contact card" id="contact" style="margin-bottom:100px;">
         <h1>Contactez-moi</h1>
         {{ include('article/contact_form.html.twig') }}
+        <div class="loader">
+            <img width="90px" src="{{ asset('images/loader.svg')}}" alt="Chargement..." /> <p> Chargement ... </p>
+        </div>
+        <div class="message-erreur mt-4 alert alert-danger">
+            <p> <i class="bi bi-exclamation-circle-fill"></i> Une erreur est survenue veuilliez ressayer. Si cette erreur persiste contactez moi à l'adresse alex.wasef@gmail.com</p>
+        </div>
+        <div class="message-send mt-4 alert alert-success">
+           <p> <i class="bi bi-check-circle-fill"></i> Votre message a bien été envoyé. Alexandra WASEF vous recontactera dans les plus brefs délais. </p>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -15,6 +15,17 @@
         border-color: var(--bs-pink);
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(239, 104, 205, 0.6);
     }
+    .loader{
+        text-align: center;
+        margin-top: 20px;
+    }
+    .message-erreur, .message-send{
+        p{
+            text-align: center;
+            margin:0;
+        }
+        
+    }
 }
 .contact h1{
     padding-top: 30px;

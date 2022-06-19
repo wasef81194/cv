@@ -22,5 +22,5 @@ import "./styles/contact.scss";
 
 // start the Stimulus application
 import "./bootstrap";
-import "./controllers/card_projet.js";
+import "./controllers/contact.js";
 import "./controllers/nav.js";
