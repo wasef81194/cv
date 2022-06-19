@@ -15,12 +15,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+//mail
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 #[Route('/article')]
 class ArticleController extends AbstractController
 {
     #[Route('/', name: 'article_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, ContactRepository $contactRepository, ArticleRepository $articleRepository , AlbumsRepository $albumsRepository ): Response
+    public function index(Request $request , MailerInterface $mailer, ContactRepository $contactRepository, ArticleRepository $articleRepository , AlbumsRepository $albumsRepository ): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -28,7 +33,24 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $contactRepository->add($contact);
-            return $this->redirectToRoute('app_contact_index', [], Response::HTTP_SEE_OTHER);
+            $data = (new TemplatedEmail())
+                ->from((new Address($contact->getEmail())))
+                ->to(new Address('alex.wasef@gmail.com'))
+                //->bcc('bcc@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->replyTo($contact->getEmail())
+                ->subject('Contact via ton portfolio')
+                ->htmlTemplate('email/contact.html.twig')
+                ->context([
+                    'nom' => $contact->getNom(),
+                    'prenom' => $contact->getPrenom(),
+                    'mail' => $contact->getEmail(),
+                    'entreprise' => $contact->getEntreprise(),
+                    'message' => $contact->getMessage()
+                    ])
+            ;
+            $mailer->send($data);
+            $this->addFlash('message', 'Votre message à bien été envoyer. Je Alexandra WASEF vous recontactera dans les plus bref délais');
         }
 
         return $this->renderForm('article/index.html.twig', [

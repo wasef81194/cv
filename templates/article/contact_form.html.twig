@@ -1,29 +1,28 @@
 {{ form_start(formContact, {'attr': {'class': 'form-contact' }})}}
     
-    <div class="row g-2">
+    <div class="row g-2 mt-4">
         <div class="col">
-            {{ form_label(formContact.nom)}}
             {{ form_widget(formContact.nom, {'attr': {'class': 'form-control' }})}}
         </div>
         <div class="col">
-             {{ form_label(formContact.prenom)}}
             {{ form_widget(formContact.prenom, {'attr': {'class': 'form-control' }})}}
         </div>
     </div>
-    <div class="row g-2">
+    <div class="row g-2 mt-4">
         <div class="col">
-            {{ form_label(formContact.entreprise)}}
             {{ form_widget(formContact.entreprise, {'attr': {'class': 'form-control' }})}}
         </div>
         <div class="col">
-             {{ form_label(formContact.email)}}
             {{ form_widget(formContact.email, {'attr': {'class': 'form-control' }})}}
         </div>
     </div>
-    <div class="row g-1">
+    <div class="row g-1 mt-4">
         <div class="col">
-            {{ form_label(formContact.message)}}
             {{ form_widget(formContact.message, {'attr': {'class': 'form-control' }})}}
         </div>
+    </div>
+
+    <div class="d-grid gap-2 col-6 mx-auto mt-4">
+        <button class="btn btn-send" type="submit">  <i class="bi bi-send"></i> Envoyer </button>
     </div>
 {{ form_end(formContact) }}

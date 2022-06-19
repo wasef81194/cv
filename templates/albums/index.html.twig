@@ -11,6 +11,8 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>actions</th>
+                <th>article</th>
+                <th>legende</th>
             </tr>
         </thead>
         <tbody>
@@ -18,9 +20,12 @@
             <tr>
                 <td>{{ album.id }}</td>
                 <td>{{ album.nom }}</td>
+                <td>{{ album.article.nom }}</td>
+                <td>{{ album.legende }}</td>
                 <td>
                     <a href="{{ path('app_albums_show', {'id': album.id}) }}">show</a>
                     <a href="{{ path('app_albums_edit', {'id': album.id}) }}">edit</a>
+                    {{ include('albums/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

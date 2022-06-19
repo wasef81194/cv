@@ -67,13 +67,32 @@ class AlbumsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_albums_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Albums $album, AlbumsRepository $albumsRepository): Response
+    public function edit(Request $request, Albums $album, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AlbumsType::class, $album);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $albumsRepository->add($album, true);
+            $images = $form->get('images')->getData();
+            
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('albums_directory'),
+                    $fichier
+                );
+                
+                // On crée l'image dans la base de données
+                $album->setNom($fichier);
+            }   
+            $entityManager->persist($album);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
 
             return $this->redirectToRoute('app_albums_index', [], Response::HTTP_SEE_OTHER);
         }
